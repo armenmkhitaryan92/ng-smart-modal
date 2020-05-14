@@ -123,6 +123,50 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-libraries"
+    },
+    "ng-smart-modal": {
+      "projectType": "library",
+      "root": "projects/ng-smart-modal",
+      "sourceRoot": "projects/ng-smart-modal/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-smart-modal/tsconfig.lib.json",
+            "project": "projects/ng-smart-modal/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-smart-modal/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-smart-modal/src/test.ts",
+            "tsConfig": "projects/ng-smart-modal/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-smart-modal/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-smart-modal/tsconfig.lib.json",
+              "projects/ng-smart-modal/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "angular-libraries",
+  "cli": {
+    "analytics": "ce09006f-6bfc-4784-86de-1a438778b896"
+  }
 }

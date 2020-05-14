@@ -14,7 +14,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-smart-modal": [
+        "dist/ng-smart-modal/ng-smart-modal",
+        "dist/ng-smart-modal"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

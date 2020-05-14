@@ -1,0 +1,19 @@
+<div>
+  Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.
+</div>
+
+
+<button (click)="openModal()">Open First Modal</button>
+
+
+<ng-template #templateRef>
+  <div>
+    First modal works!
+    <button (click)="openSecond()">Open Second</button>
+  </div>
+</ng-template>
+
+
+<ng-template #ref>
+  <div>Second modal works!</div>
+</ng-template>
