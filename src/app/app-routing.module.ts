@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {NgSmartModalComponent} from "./pages/ng-smart-modal/ng-smart-modal.component";
-
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'ng-smart-modal', pathMatch: 'full'},
-  {path: 'ng-smart-modal', component: NgSmartModalComponent}
+  {
+    path: '',
+    loadChildren: () => import('./modules/ng-smart-modal/ng-smart-modal.module').then(m => m.NgSmartModalModule)
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
