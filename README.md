@@ -1,27 +1,43 @@
 # AngularLibraries
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+**1) Import NgSmartModalModule**
 
-## Development server
+    @NgModule({
+      imports: [
+        BrowserModule,
+        NgSmartModalModule
+      ],
+      bootstrap: [AppComponent]
+    })
+    export class AppModule { }
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+**2) Inject service into component.**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    constructor(
+         private ngSmartModalService: NgSmartModalService
+    ) {}
 
-## Build
+**3) ngSmartModalService attach method will create instance from component and append template into document body.
+     You can also pass ng-template with attachTemplate method with the same configs.**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+    public openModal(): void { 
+     const modal: IModal<FirstTestModalComponent> = this.ngSmartModalService.attach(FirstTestModalComponent,
+          {
+             inputs: {},   // object;
+             outputs: {}, // object;
+             class: 'my-custom-class',        // string | string[];
+             ignoreWhenRouterChanged: false, // boolean;
+             ignoreBackdropClick: false,    // boolean;
+             ignoreBackdrop: false,        //  boolean;
+             ignoreAnimation: false,      // boolean;
+             ignoreEsc: false,           // boolean;
+           });
+    }
 
-## Running unit tests
+**4) You can listen to component instance EventEmitter and  modalsWrapper closeWrapper$ EventEmitter.**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    modal.instance.event$.subscribe();
+    modal.closeWrapper$.subscribe()
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+   

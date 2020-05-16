@@ -33,6 +33,10 @@ export class NgSmartModalComponent implements OnInit {
         ignoreEsc: false,           // boolean;
       }
     );
+
+    modal.instance.event$.subscribe();
+    modal.closeWrapper$.subscribe()
+
   }
 
   openSecond() {
