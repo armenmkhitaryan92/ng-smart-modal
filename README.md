@@ -38,6 +38,6 @@
 **4) You can listen to component instance EventEmitter and  modalsWrapper closeWrapper$ EventEmitter.**
 
     modal.instance.event$.subscribe();
-    modal.closeWrapper$.subscribe()
+    modal.closeWrapper$.subscribe();
 
    
