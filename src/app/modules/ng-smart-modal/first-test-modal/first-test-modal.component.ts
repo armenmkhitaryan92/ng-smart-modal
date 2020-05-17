@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
-import {IModal} from '../../../../../projects/ng-smart-modal/src/lib/interfaces/i-modal';
 import {SecondTestModalComponent} from '../second-test-modal/second-test-modal.component';
 import {tap} from 'rxjs/operators';
-import {NgSmartModalService} from '../../../../../projects/ng-smart-modal/src/lib/services/ng-smart-modal.service';
+import {IModal, NgSmartModalService} from 'ng-smart-modal';
+
 
 @Component({
   selector: 'app-first-test-modal',
