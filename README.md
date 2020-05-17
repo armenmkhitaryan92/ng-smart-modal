@@ -1,4 +1,5 @@
 # AngularLibraries
+# Angular >= 9.*.*
 
 **1) Import NgSmartModalModule**
 

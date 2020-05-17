@@ -13,7 +13,7 @@ import {Wrapper} from '../types/wrapper';
 import {IModal} from '../interfaces/i-modal';
 import {Configs} from '../interfaces/configs';
 import {ModalData} from '../interfaces/modal-data';
-import {NavigationEnd, Router, RouterEvent} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {delay, distinctUntilChanged, filter, tap, throttleTime} from 'rxjs/operators';
 import {NgModalWrapperComponent} from '../ng-modal-wrapper/ng-modal-wrapper.component';
 
@@ -39,7 +39,7 @@ export class NgSmartModalService {
   private deAttachPopupOnRouteChange(): void {
     this.router.events
       .pipe(
-        filter((e: RouterEvent) => e instanceof NavigationEnd),
+        filter((e) => e instanceof NavigationEnd),
         filter(() => !!this.modals.length)
       )
       .subscribe(() => {

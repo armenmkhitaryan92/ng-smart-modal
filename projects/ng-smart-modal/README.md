@@ -1,24 +1,52 @@
-# NgSmartModal
+# AngularLibraries
+# Angular >= 9.*.*
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
+**1) Import NgSmartModalModule**
 
-## Code scaffolding
+    @NgModule({
+      imports: [
+        BrowserModule,
+        NgSmartModalModule
+      ],
+      bootstrap: [AppComponent]
+    })
+    export class AppModule { }
 
-Run `ng generate component component-name --project ng-smart-modal` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-smart-modal`.
-> Note: Don't forget to add `--project ng-smart-modal` or else it will be added to the default project in your `angular.json` file. 
+**2) Inject service into component.**
 
-## Build
+    constructor(
+         private ngSmartModalService: NgSmartModalService
+    ) {}
 
-Run `ng build ng-smart-modal` to build the project. The build artifacts will be stored in the `dist/` directory.
+**3) ngSmartModalService attach method will create instance from component and append template into document body.
+     You can also pass ng-template with attachTemplate method with the same configs.**
 
-## Publishing
+    public openModal(): void { 
+     const modal: IModal<Component> = this.ngSmartModalService.attach(Component,
+          {
+             inputs: {},   // object;
+             outputs: {}, // object;
+             class: 'my-custom-class',        // string | string[];
+             ignoreWhenRouterChanged: false, // boolean; (modal will automatically close on route change if this is enabled)
+             ignoreBackdropClick: false,    // boolean;
+             ignoreBackdrop: false,        //  boolean;
+             ignoreAnimation: false,      // boolean;
+             ignoreEsc: false,           // boolean;
+           });
+           
+           this.ngSmartModalService.attachTemplateRef(templateRef);
+    }
 
-After building your library with `ng build ng-smart-modal`, go to the dist folder `cd dist/ng-smart-modal` and run `npm publish`.
+**4) You can listen to component instance EventEmitter and  modalsWrapper closeWrapper$ EventEmitter.**
 
-## Running unit tests
+    modal.instance.event$.subscribe();
+    modal.closeWrapper$.subscribe();
 
-Run `ng test ng-smart-modal` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**5) 'deAttach()' - method will remove modal from document body. You also can pass index of a modal.**
 
-## Further help
+    this.ngSmartModalService.deAttach();
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+**6) You can pass or remove classes to modals. You can also pass an index of a modal on which you want to add class.**
+
+    this.ngSmartModalService.setClass(['my-first-custom-class', 'my-second-custom-class']);
+    this.ngSmartModalService.removeClass(['my-first-custom-class', 'my-second-custom-class'], 1);
