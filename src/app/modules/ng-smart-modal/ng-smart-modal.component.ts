@@ -38,7 +38,7 @@ export class NgSmartModalComponent implements OnInit {
 
     modal.instance.close$
       .pipe(tap(() => console.log('First modal Event Works!')))
-      .subscribe(() => this.ngSmartModalService.deAttach());
+      .subscribe(() => this.ngSmartModalService.detach());
 
     modal.closeWrapper$
       .subscribe(() => console.log('First wrapper modal Event Works!'));
@@ -51,7 +51,7 @@ export class NgSmartModalComponent implements OnInit {
 
     modal.instance.close$
       .pipe(tap(() => console.log('Second modal Event Works!')))
-      .subscribe(() => this.ngSmartModalService.deAttach());
+      .subscribe(() => this.ngSmartModalService.detach());
 
     modal.closeWrapper$
       .subscribe(() => console.log('Second wrapper modal Event Works!'));
@@ -68,7 +68,7 @@ export class NgSmartModalComponent implements OnInit {
   }
 
   public onClose(number: number) {
-    this.ngSmartModalService.deAttach(number);
+    this.ngSmartModalService.detach(number);
   }
 
 

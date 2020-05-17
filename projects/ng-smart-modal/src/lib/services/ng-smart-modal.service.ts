@@ -65,7 +65,7 @@ export class NgSmartModalService {
         filter(() => !this.getModal()?.configs?.ignoreEsc),
         throttleTime(delayTime)
       )
-      .subscribe(() => this.deAttach());
+      .subscribe(() => this.detach());
   }
 
   public attach<T>(component: Type<T>, configs?: Configs): IModal<T> {
@@ -132,7 +132,7 @@ export class NgSmartModalService {
         .instance
         .close$
         .pipe(distinctUntilChanged())
-        .subscribe(() => this.deAttach());
+        .subscribe(() => this.detach());
     }
   }
 
@@ -165,7 +165,7 @@ export class NgSmartModalService {
     return {close$: modalWrapperRef.instance.close$};
   }
 
-  public deAttach(index = this.lasModalIndex): void {
+  public detach(index = this.lasModalIndex): void {
     timer(0)
       .pipe(
         tap(() => this.hidePopup(index)),
