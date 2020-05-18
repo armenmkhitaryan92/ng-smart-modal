@@ -1,6 +1,6 @@
 import {tap} from "rxjs/operators";
 import {IModal, NgSmartModalService} from 'ng-smart-modal';
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FirstTestModalComponent} from "./first-test-modal/first-test-modal.component";
 import {SecondTestModalComponent} from "./second-test-modal/second-test-modal.component";
 
@@ -13,6 +13,7 @@ export class NgSmartModalComponent implements OnInit {
 
   @ViewChild('firstTemplateRef') firstTemplateRef: TemplateRef<any>;
   @ViewChild('secondTemplateRef') secondTemplateRef: TemplateRef<any>;
+  private firstModalClose$: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private ngSmartModalService: NgSmartModalService
@@ -20,13 +21,14 @@ export class NgSmartModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.firstModalClose$.subscribe();
   }
 
   public openModal(): void {
     const modal: IModal<FirstTestModalComponent> = this.ngSmartModalService.attach(FirstTestModalComponent,
       {
-        inputs: {},   // object;
-        outputs: {}, // object;
+        inputs: {title: 'First Modal Works!'},   // object;
+        outputs: {close$: this.firstModalClose$}, // object;
         class: 'my-custom-class',        // string | string[];
         ignoreWhenRouterChanged: false, // boolean;
         ignoreBackdropClick: false,    // boolean;

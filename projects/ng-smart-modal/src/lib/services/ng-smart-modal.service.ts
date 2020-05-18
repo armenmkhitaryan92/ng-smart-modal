@@ -218,7 +218,9 @@ export class NgSmartModalService {
       .subscribe(() => {
         if (slidePopup.clientHeight > window.innerHeight) {
           element.style.overflow = 'auto';
-          slideModal.style.marginRight = '17px';
+          if (!this.onMobileState) {
+            slideModal.style.marginRight = '17px';
+          }
         }
       });
   }

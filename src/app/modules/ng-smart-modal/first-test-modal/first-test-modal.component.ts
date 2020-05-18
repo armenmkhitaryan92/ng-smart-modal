@@ -11,6 +11,7 @@ import {IModal, NgSmartModalService} from 'ng-smart-modal';
 })
 export class FirstTestModalComponent implements OnInit {
 
+  public title: string;
   public close$ = new EventEmitter<void>();
 
   constructor(

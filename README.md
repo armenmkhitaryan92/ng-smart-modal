@@ -1,7 +1,7 @@
 # ng-smart-modal library for creating dynamic nested modals.
 Supported version Angular 9 and above
 
-**1) Install Library**
+**1) Install Library - 'npm i ng-smart-modal'**
 
 **2) Inject service into component.**
 
@@ -27,19 +27,60 @@ Supported version Angular 9 and above
            
            this.ngSmartModalService.attachTemplateRef(templateRef);
     }
+    
+Input key names should be the same as attached component property names.
+
+    export class TestModalComponent implements OnInit {
+      public title: string;
+      public user: {name: string, age: number};
+    }
+    
+    public openModal(): void { 
+         this.ngSmartModalService.attach(TestModalComponent, {
+             inputs: {title: 'my-title', user: {age: 27, name: 'David'}}
+         });
+    }
+    
+To use output bindings assign them to component properties or local variables.
+
+     export class AppComponent implements OnInit {
+    
+       private testModalClose$ = new EventEmitter();
+     
+       constructor(
+         private ngSmartModalService: NgSmartModalService
+       ) {
+       }
+     
+       ngOnInit(): void {
+         this.firstModalClose$.subscribe();
+       }
+     
+       public openModal(): void {
+         const modal: IModal<FirstTestModalComponent> = this.ngSmartModalService.attach(TestModalComponent, {
+             outputs: {close$: this.firstModalClose$}
+         });
+    }
+
+    export class TestModalComponent {
+      public close$ = new EventEmitter<void>();
+    }
 
 **4) You can listen to component instance and  modalsWrapper closeWrapper$ EventEmitters.**
 
     modal.instance.event$.subscribe();
     modal.closeWrapper$.subscribe();
 
-**5) 'detach()' - method will remove modal from document body. You also can pass index of a modal.**
+**5) 'detach()' - method will remove last modal from document body. You can also pass index of a modal which you want to remove.**
 
     this.ngSmartModalService.detach();
-
+    this.ngSmartModalService.detach(modalIndex);
+    
 **6) You can pass or remove classes to modals. You can also pass an index of a modal on which you want to add or remove class.**
 
     this.ngSmartModalService.setClass(['my-first-custom-class', 'my-second-custom-class']);
-    this.ngSmartModalService.removeClass(['my-first-custom-class', 'my-second-custom-class'], 1);
+    this.ngSmartModalService.removeClass(['my-first-custom-class', 'my-second-custom-class'], modalIndex);
 
-[Check bundle size](https://bundlephobia.com/result?p=ng-smart-modal@0.0.3)
+[Check bundle size](https://bundlephobia.com/result?p=ng-smart-modal@0.0.6)
+
+[Live Demo](https://ng-smart-modal.stackblitz.io)
