@@ -1,7 +1,9 @@
-# AngularLibraries
-# Angular >= 9.*.*
+# ng-smart-modal library for creating dynamic nested modals.
+Supported version Angular 9 and above
 
 **1) Import NgSmartModalModule**
+
+    import {NgSmartModalModule} from 'ng-smart-modal';
 
     @NgModule({
       imports: [
@@ -42,9 +44,9 @@
     modal.instance.event$.subscribe();
     modal.closeWrapper$.subscribe();
 
-**5) 'deAttach()' - method will remove modal from document body. You also can pass index of a modal.**
+**5) 'detach()' - method will remove modal from document body. You also can pass index of a modal.**
 
-    this.ngSmartModalService.deAttach();
+    this.ngSmartModalService.detach();
 
 **6) You can pass or remove classes to modals. You can also pass an index of a modal on which you want to add class.**
 
