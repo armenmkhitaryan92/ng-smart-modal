@@ -71,5 +71,5 @@ export class NgSmartModalComponent implements OnInit {
     this.ngSmartModalService.detach(number);
   }
 
-
 }
+

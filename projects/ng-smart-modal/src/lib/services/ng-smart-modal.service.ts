@@ -6,7 +6,8 @@ import {
   Injectable,
   Injector,
   TemplateRef,
-  Type
+  Type,
+  Optional
 } from '@angular/core';
 import {fromEvent, timer} from 'rxjs';
 import {Wrapper} from '../types/wrapper';
@@ -27,7 +28,7 @@ export class NgSmartModalService {
   private modals: ModalData[] = [];
 
   constructor(
-    private router: Router,
+    @Optional() private router: Router,
     private injector: Injector,
     private appRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver
@@ -37,7 +38,7 @@ export class NgSmartModalService {
   }
 
   private deAttachPopupOnRouteChange(): void {
-    this.router.events
+    this.router?.events
       .pipe(
         filter((e) => e instanceof NavigationEnd),
         filter(() => !!this.modals.length)
