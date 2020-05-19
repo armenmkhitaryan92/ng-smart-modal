@@ -6,10 +6,10 @@ import {SecondTestModalComponent} from "./second-test-modal/second-test-modal.co
 
 @Component({
   selector: 'app-ng-smart-modal',
-  templateUrl: './ng-smart-modal.component.html',
-  styleUrls: ['./ng-smart-modal.component.scss']
+  templateUrl: './test-smart-modal.component.html',
+  styleUrls: ['./test-smart-modal.component.scss']
 })
-export class NgSmartModalComponent implements OnInit {
+export class TestSmartModalComponent implements OnInit {
 
   @ViewChild('firstTemplateRef') firstTemplateRef: TemplateRef<any>;
   @ViewChild('secondTemplateRef') secondTemplateRef: TemplateRef<any>;

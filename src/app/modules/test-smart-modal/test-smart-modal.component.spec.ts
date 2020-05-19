@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgModalWrapperComponent } from './ng-modal-wrapper.component';
+import { TestSmartModalComponent } from './test-smart-modal.component';
 
-describe('NgModalWrapperComponent', () => {
-  let component: NgModalWrapperComponent;
-  let fixture: ComponentFixture<NgModalWrapperComponent>;
+describe('NgSmartModalComponent', () => {
+  let component: TestSmartModalComponent;
+  let fixture: ComponentFixture<TestSmartModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgModalWrapperComponent ]
+      declarations: [ TestSmartModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgModalWrapperComponent);
+    fixture = TestBed.createComponent(TestSmartModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

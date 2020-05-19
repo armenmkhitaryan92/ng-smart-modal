@@ -1,19 +1,15 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'ng-modal-wrapper',
-  templateUrl: './ng-modal-wrapper.component.html',
+  template: `
+    <div class="slide popup">
+      <div class="slide_modal" (click)="close$.emit()"></div>
+      <div class="slide_popup"></div>
+    </div>`,
   styleUrls: ['./ng-modal-wrapper.component.scss']
 })
-export class NgModalWrapperComponent implements OnInit {
-
+export class NgModalWrapperComponent {
   public close$ = new EventEmitter<void>();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 }
 

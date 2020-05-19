@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./modules/ng-smart-modal/ng-smart-modal.module').then(m => m.NgSmartModalModule)
+    loadChildren: () => import('./modules/test-smart-modal/test-smart-modal.module').then(m => m.TestSmartModalModule)
   }
 ];
 

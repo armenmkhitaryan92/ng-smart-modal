@@ -30,7 +30,7 @@ Supported version Angular 9 and above
     
 Input key names should be the same as attached component property names.
 
-    export class TestModalComponent implements OnInit {
+    export class TestModalComponent {
       public title: string;
       public user: {name: string, age: number};
     }
@@ -45,7 +45,7 @@ To use output bindings assign them to component properties or local variables.
 
      export class AppComponent implements OnInit {
     
-       private testModalClose$ = new EventEmitter();
+       private testModalClose$ = new EventEmitter<void>();
      
        constructor(
          private ngSmartModalService: NgSmartModalService
@@ -53,12 +53,12 @@ To use output bindings assign them to component properties or local variables.
        }
      
        ngOnInit(): void {
-         this.firstModalClose$.subscribe();
+         this.testModalClose$.subscribe();
        }
      
        public openModal(): void {
-         const modal: IModal<FirstTestModalComponent> = this.ngSmartModalService.attach(TestModalComponent, {
-             outputs: {close$: this.firstModalClose$}
+         this.ngSmartModalService.attach(TestModalComponent, {
+             outputs: {close$: this.testModalClose$}
          });
     }
 
@@ -81,6 +81,6 @@ To use output bindings assign them to component properties or local variables.
     this.ngSmartModalService.setClass(['my-first-custom-class', 'my-second-custom-class']);
     this.ngSmartModalService.removeClass(['my-first-custom-class', 'my-second-custom-class'], modalIndex);
 
-[Check bundle size](https://bundlephobia.com/result?p=ng-smart-modal@0.0.6)
+[Check bundle size](https://bundlephobia.com/result?p=ng-smart-modal@0.0.7)
 
 [Live Demo](https://ng-smart-modal.stackblitz.io)

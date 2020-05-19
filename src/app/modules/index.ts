@@ -1,1 +1,1 @@
-export * from './ng-smart-modal/ng-smart-modal.module';
+export * from './test-smart-modal/test-smart-modal.module';

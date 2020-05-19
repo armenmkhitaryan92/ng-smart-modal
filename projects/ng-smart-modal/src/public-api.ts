@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ng-smart-modal
+ * Public API Surface of test-smart-modal
  */
 
 export * from './lib/interfaces/i-modal';
