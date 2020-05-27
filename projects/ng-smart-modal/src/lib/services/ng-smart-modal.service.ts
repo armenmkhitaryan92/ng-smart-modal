@@ -5,9 +5,9 @@ import {
   EventEmitter,
   Injectable,
   Injector,
+  Optional,
   TemplateRef,
-  Type,
-  Optional
+  Type
 } from '@angular/core';
 import {fromEvent, timer} from 'rxjs';
 import {Wrapper} from '../types/wrapper';
@@ -52,7 +52,10 @@ export class NgSmartModalService {
                 delay(delayTime),
                 tap(() => this.destroyWrapperComponent(m.modalWrapperRef))
               )
-              .subscribe(() => this.modals = this.modals.filter((modal) => modal !== m));
+              .subscribe(() => {
+                this.modals = this.modals.filter((modal) => modal !== m);
+                this.removeDocumentBodyStyle();
+              });
           }
         });
       });
