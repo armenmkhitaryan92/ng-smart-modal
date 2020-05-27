@@ -81,6 +81,5 @@ To use output bindings assign them to component properties or local variables.
     this.ngSmartModalService.setClass(['my-first-custom-class', 'my-second-custom-class']);
     this.ngSmartModalService.removeClass(['my-first-custom-class', 'my-second-custom-class'], modalIndex);
 
-[Check bundle size](https://bundlephobia.com/result?p=ng-smart-modal@0.0.7)
+[Check bundle size](https://bundlephobia.com/result?p=ng-smart-modal@0.1.0)
 
-[Live Demo](https://ng-smart-modal.stackblitz.io)
