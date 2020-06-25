@@ -1,5 +1,5 @@
-# ng-smart-modal library for creating dynamic nested modals.
-Supported version Angular 9 and above
+# ng-smart-modal is a lightweight Angular library for creating dynamic nested modals
+Supported version of Angular 9 and higher
 
 **1) Install Library - 'npm i ng-smart-modal'**
 
@@ -19,11 +19,12 @@ Supported version Angular 9 and above
              inputs: {},   // object;
              outputs: {}, // object;
              class: 'my-custom-class',        // string | string[];
-             ignoreWhenRouterChanged: false, // boolean; (modal will automatically close on route change if this is enabled)
+             ignoreWhenRouterChanged: false, // boolean; (the modal automatically closes when changing the route, if enabled)
              ignoreBackdropClick: false,    // boolean;
              ignoreBackdrop: false,        //  boolean;
              ignoreAnimation: false,      // boolean;
              ignoreEsc: false,           // boolean;
+             topPosition: 'center'      // could be 'px' | '%' | 'vh' 
            });
            
            this.ngSmartModalService.attachTemplateRef(templateRef);

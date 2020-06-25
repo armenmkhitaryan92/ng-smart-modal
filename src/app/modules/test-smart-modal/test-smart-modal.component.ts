@@ -1,8 +1,10 @@
 import {tap} from "rxjs/operators";
-import {IModal, NgSmartModalService} from 'ng-smart-modal';
+// import {IModal, NgSmartModalService} from 'ng-smart-modal';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FirstTestModalComponent} from "./first-test-modal/first-test-modal.component";
 import {SecondTestModalComponent} from "./second-test-modal/second-test-modal.component";
+import {NgSmartModalService} from "../../../../projects/ng-smart-modal/src/lib/services/ng-smart-modal.service";
+import {IModal} from "../../../../projects/ng-smart-modal/src/lib/interfaces/i-modal";
 
 @Component({
   selector: 'app-ng-smart-modal',
@@ -35,6 +37,7 @@ export class TestSmartModalComponent implements OnInit {
         ignoreBackdrop: false,        //  boolean;
         ignoreAnimation: false,      // boolean;
         ignoreEsc: false,           // boolean;
+        topPosition: 'center'
       }
     );
 

@@ -7,4 +7,5 @@ export interface Configs {
     ignoreBackdrop?: boolean;
     ignoreAnimation?: boolean;
     ignoreEsc?: boolean;
+    topPosition?: string;
 }
