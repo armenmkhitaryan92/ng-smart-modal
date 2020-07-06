@@ -77,4 +77,3 @@ export class TestSmartModalComponent implements OnInit {
   }
 
 }
-
