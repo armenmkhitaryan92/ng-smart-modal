@@ -204,7 +204,7 @@ export class NgSmartModalService {
     const slidePopup: HTMLElement = element.querySelector('.slide_popup');
 
     if (configs?.topPosition === 'center') {
-      slidePopup.parentElement.style.top = `calc(50% - ${slidePopup.parentElement.offsetHeight}px)`;
+      slidePopup.parentElement.style.top = `calc(50% - ${Math.round(slidePopup.parentElement.offsetHeight / 2)}px)`;
     }
     if (configs?.topPosition && configs?.topPosition !== 'center') {
       slidePopup.parentElement.style.top = configs.topPosition;
