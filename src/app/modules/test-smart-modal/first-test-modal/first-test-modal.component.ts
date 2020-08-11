@@ -3,7 +3,6 @@ import {SecondTestModalComponent} from '../second-test-modal/second-test-modal.c
 import {tap} from 'rxjs/operators';
 import {IModal, NgSmartModalService} from 'ng-smart-modal';
 
-
 @Component({
   selector: 'app-first-test-modal',
   templateUrl: './first-test-modal.component.html',
@@ -11,7 +10,7 @@ import {IModal, NgSmartModalService} from 'ng-smart-modal';
 })
 export class FirstTestModalComponent implements OnInit {
 
-  public title: string;
+  public title: string | undefined;
   public close$ = new EventEmitter<void>();
 
   constructor(

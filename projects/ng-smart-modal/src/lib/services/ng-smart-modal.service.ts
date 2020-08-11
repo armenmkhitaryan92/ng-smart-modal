@@ -48,7 +48,7 @@ export class NgSmartModalService {
           if (!m.configs?.ignoreWhenRouterChanged) {
             timer(0)
               .pipe(
-                tap(() => m.modalWrapperDomElement.querySelector('.slide').classList.remove('show')),
+                tap(() => m.modalWrapperDomElement.querySelector('.slide')?.classList.remove('show')),
                 delay(delayTime),
                 tap(() => this.destroyWrapperComponent(m.modalWrapperRef))
               )
@@ -62,8 +62,10 @@ export class NgSmartModalService {
   }
 
   private listenToESC(): void {
+
     fromEvent(document, 'keydown')
       .pipe(
+        // @ts-ignore
         filter(() => !!this.modals.length),
         filter((event: KeyboardEvent) => event.code === 'Escape'),
         filter(() => !this.getModal()?.configs?.ignoreEsc),
@@ -89,7 +91,7 @@ export class NgSmartModalService {
     const componentDomElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0];
 
     // 5. Append DOM element into wrapper component DOM element
-    modalWrapperDomElement.querySelector('.slide_popup').appendChild(componentDomElem);
+    modalWrapperDomElement.querySelector('.slide_popup')?.appendChild(componentDomElem);
 
     this.modals.push({modalWrapperRef, modalWrapperDomElement, componentRef, componentDomElem, configs});
 
@@ -118,19 +120,19 @@ export class NgSmartModalService {
     return {modalWrapperRef, modalWrapperDomElement};
   }
 
-  public setClass(classname: string | string[], index = this.lasModalIndex): void {
+  public setClass(classname: string | string[] | undefined, index: number = this.lasModalIndex): void {
     classname = classname || 'slide_popup';
     const className: string[] = Array.isArray(classname) ? classname : [classname];
-    this.getModal(index).modalWrapperDomElement.querySelector('.slide_popup').classList.add(...className);
+    this.getModal(index)?.modalWrapperDomElement.querySelector('.slide_popup')?.classList.add(...className);
   }
 
   public removeClass(classname: string | string[], index = this.lasModalIndex): void {
     const className: string[] = Array.isArray(classname) ? classname : [classname];
-    this.getModal(index).modalWrapperDomElement.querySelector('.slide_popup').classList.remove(...className);
+    this.getModal(index)?.modalWrapperDomElement.querySelector('.slide_popup')?.classList.remove(...className);
   }
 
   private closeModalWrapperComponent(modalWrapperRef: Wrapper): void {
-    const modal: ModalData = this.modals.find((m: ModalData) => m.modalWrapperRef === modalWrapperRef);
+    const modal: ModalData | undefined = this.modals.find((m: ModalData) => m.modalWrapperRef === modalWrapperRef);
     if (!modal?.configs?.ignoreBackdropClick) {
       modalWrapperRef
         .instance
@@ -140,10 +142,12 @@ export class NgSmartModalService {
     }
   }
 
-  private attachConfig(configs: Configs, componentRef: any): void {
+  private attachConfig(configs: Configs | undefined, componentRef: any): void {
     const inputs = configs?.inputs || {};
     const outputs = configs?.outputs || {};
+    // @ts-ignore
     Object.keys(inputs).forEach((key: string) => componentRef.instance[key] = inputs[key]);
+    // @ts-ignore
     Object.keys(outputs).forEach((key: string) => componentRef.instance[key] = outputs[key]);
   }
 
@@ -154,7 +158,7 @@ export class NgSmartModalService {
     // Get DOM element from templateRef
     const templateRefDom: HTMLElement = templateRef.createEmbeddedView(null).rootNodes[0];
 
-    modalWrapperDomElement.querySelector('.slide_popup').appendChild(templateRefDom);
+    modalWrapperDomElement.querySelector('.slide_popup')?.appendChild(templateRefDom);
 
     this.modals.push({modalWrapperRef, modalWrapperDomElement, componentRef: null, componentDomElem: null, configs});
 
@@ -169,7 +173,7 @@ export class NgSmartModalService {
     return {close$: modalWrapperRef.instance.close$};
   }
 
-  public detach(index = this.lasModalIndex): void {
+  public detach(index: number = this.lasModalIndex): void {
     timer(0)
       .pipe(
         tap(() => this.hidePopup(index)),
@@ -198,39 +202,45 @@ export class NgSmartModalService {
     modalWrapperRef.destroy();
   }
 
-  private showPopup(modalWrapperDomElement: HTMLElement, configs: Configs): void {
+  private showPopup(modalWrapperDomElement: HTMLElement, configs?: Configs): void {
 
-    const element: HTMLElement = modalWrapperDomElement.querySelector('.slide');
-    const slidePopup: HTMLElement = element.querySelector('.slide_popup');
+    const element: HTMLElement | null = modalWrapperDomElement.querySelector('.slide');
+    const slidePopup: HTMLElement | null | undefined = element?.querySelector('.slide_popup');
+
 
     if (configs?.topPosition === 'center') {
+      // @ts-ignore
       slidePopup.parentElement.style.top = `calc(50% - ${Math.round(slidePopup.parentElement.offsetHeight / 2)}px)`;
     }
+
     if (configs?.topPosition && configs?.topPosition !== 'center') {
+      // @ts-ignore
       slidePopup.parentElement.style.top = configs.topPosition;
     }
 
-    const slideModal = element.children[0] as HTMLElement;
+    const slideModal = element?.children[0] as HTMLElement;
 
     if (configs?.ignoreBackdrop) {
       slideModal.style.backgroundColor = 'initial';
     }
 
     if (configs?.ignoreAnimation) {
-      element.classList.add('disable-animation');
+      element?.classList.add('disable-animation');
     }
 
     timer(100)
       .pipe(
-        tap(() => element.classList.add('show')),
+        tap(() => element?.classList.add('show')),
         tap(() => document.body.style.overflow = 'hidden'),
         tap(() => this.addDocumentBodyPaddingRight()),
       )
       .subscribe(() => {
-        if (slidePopup.clientHeight > window.innerHeight) {
-          element.style.overflow = 'auto';
+        if (slidePopup && slidePopup.clientHeight > window.innerHeight) {
+          if (element) {
+            element.style.overflow = 'auto';
+          }
           if (!this.onMobileState) {
-            slideModal.style.marginRight = '17px';
+            slideModal.style.marginRight = (window.innerWidth - document.body.clientWidth) + 'px';
           }
         }
       });
@@ -243,7 +253,7 @@ export class NgSmartModalService {
   }
 
   private hidePopup(index = this.lasModalIndex): void {
-    this.getModal(index)?.modalWrapperDomElement.querySelector('.slide').classList.remove('show');
+    this.getModal(index)?.modalWrapperDomElement.querySelector('.slide')?.classList.remove('show');
   }
 
   private getModal(index = this.lasModalIndex): ModalData {

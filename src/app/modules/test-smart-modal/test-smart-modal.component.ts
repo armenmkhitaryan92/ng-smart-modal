@@ -1,10 +1,8 @@
-import {tap} from "rxjs/operators";
+import {tap} from 'rxjs/operators';
 import {IModal, NgSmartModalService} from 'ng-smart-modal';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FirstTestModalComponent} from "./first-test-modal/first-test-modal.component";
-import {SecondTestModalComponent} from "./second-test-modal/second-test-modal.component";
-// import {NgSmartModalService} from "../../../../projects/ng-smart-modal/src/lib/services/ng-smart-modal.service";
-// import {IModal} from "../../../../projects/ng-smart-modal/src/lib/interfaces/i-modal";
+import {FirstTestModalComponent} from './first-test-modal/first-test-modal.component';
+import {SecondTestModalComponent} from './second-test-modal/second-test-modal.component';
 
 @Component({
   selector: 'app-ng-smart-modal',
@@ -13,9 +11,9 @@ import {SecondTestModalComponent} from "./second-test-modal/second-test-modal.co
 })
 export class TestSmartModalComponent implements OnInit {
 
-  @ViewChild('firstTemplateRef') firstTemplateRef: TemplateRef<any>;
-  @ViewChild('secondTemplateRef') secondTemplateRef: TemplateRef<any>;
-  private firstModalClose$: EventEmitter<void> = new EventEmitter();
+  @ViewChild('firstTemplateRef') firstTemplateRef: TemplateRef<any> | undefined;
+  @ViewChild('secondTemplateRef') secondTemplateRef: TemplateRef<any> | undefined;
+  private firstModalClose$ = new EventEmitter<void>();
 
   constructor(
     private ngSmartModalService: NgSmartModalService
@@ -63,13 +61,17 @@ export class TestSmartModalComponent implements OnInit {
   }
 
   public openTemplateModal(): void {
-    this.ngSmartModalService.attachTemplateRef(this.firstTemplateRef);
+    if (this.firstTemplateRef) {
+      this.ngSmartModalService.attachTemplateRef(this.firstTemplateRef);
+    }
   }
 
   public openNestedTemplate(): void {
-    this.ngSmartModalService.attachTemplateRef(this.secondTemplateRef);
-    this.ngSmartModalService.setClass(['my-first-custom-class', 'my-second-custom-class'], 0);
-    // this.ngSmartModalService.removeClass(['my-first-custom-class', 'my-second-custom-class'], 0);
+    if (this.secondTemplateRef) {
+      this.ngSmartModalService.attachTemplateRef(this.secondTemplateRef);
+      this.ngSmartModalService.setClass(['my-first-custom-class', 'my-second-custom-class'], 0);
+      // this.ngSmartModalService.removeClass(['my-first-custom-class', 'my-second-custom-class'], 0);
+    }
   }
 
   public onClose(number: number) {

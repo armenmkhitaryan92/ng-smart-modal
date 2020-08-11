@@ -14,6 +14,7 @@
       padding-top: 1.75rem;
       padding-bottom: 1.75rem;
       max-height: calc(100vh - 3.5rem);
+      z-index: 9999;
     }
 
     &_modal {
@@ -38,7 +39,6 @@
     }
 
     &.show {
-
       .slide_popup {
         opacity: 1;
         z-index: 9999;

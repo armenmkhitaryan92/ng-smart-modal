@@ -55,6 +55,7 @@
         ]
       }
     ],
+    "no-any": true,
     "no-console": [
       true,
       "debug",
@@ -117,6 +118,7 @@
         "ban-keywords",
         "check-format",
         "allow-pascal-case"
+
       ]
     },
     "whitespace": {
