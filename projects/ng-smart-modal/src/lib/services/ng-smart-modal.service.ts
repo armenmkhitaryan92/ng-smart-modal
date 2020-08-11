@@ -265,7 +265,7 @@ export class NgSmartModalService {
       /Windows Phone/i,
     ];
 
-    return toMatch.some((toMatchItem) => {
+    return toMatch.some((toMatchItem: RegExp) => {
       return navigator.userAgent.match(toMatchItem);
     });
   }

@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4200 --host=0.0.0.0 --ssl",
+    "start": "ng serve --port 4200 --host=0.0.0.0 --ssl -o",
     "build": "ng build --prod",
-    "start-disable-reload": "ng serve --port 4200 --live-reload false",
+    "start-disable-reload": "ng serve --port 4200 --live-reload false -o",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
