@@ -16,8 +16,8 @@
     "ng-modal"
   ],
   "peerDependencies": {
-    "@angular/common": "^9.1.6",
-    "@angular/core": "^9.1.6"
+    "@angular/common": "~10.0.8",
+    "@angular/core": "~10.0.8"
 }
 ,
   "dependencies": {
