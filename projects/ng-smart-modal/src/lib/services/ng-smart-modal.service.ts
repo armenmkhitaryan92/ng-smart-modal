@@ -197,7 +197,6 @@ export class NgSmartModalService {
   }
 
   public detach(index: number = this.lasModalIndex): void {
-    console.log('index', index);
     timer(0)
       .pipe(
         tap(() => this.hidePopup(index)),
@@ -208,8 +207,6 @@ export class NgSmartModalService {
 
   private destroyComponents(index: number): void {
     if (this.modals.length) {
-      console.log(index);
-      console.log(this.modals);
       const modal = this.getModal(index)?.modalWrapperRef;
       if (modal) {
         this.modals.splice(index, 1);
