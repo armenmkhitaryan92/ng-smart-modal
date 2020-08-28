@@ -1,4 +1,5 @@
-import {tap} from 'rxjs/operators';
+import {timer} from 'rxjs';
+import {delay, tap} from 'rxjs/operators';
 import {IModal, NgSmartModalService} from 'ng-smart-modal';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FirstTestModalComponent} from './first-test-modal/first-test-modal.component';
@@ -21,6 +22,20 @@ export class TestSmartModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.openModal();
+    this.openModal();
+    this.openModal();
+    timer(3000)
+      .pipe(
+        tap(() => this.ngSmartModalService.detach()),
+        delay(500),
+        tap(() => this.ngSmartModalService.detach()),
+        delay(500),
+      )
+      .subscribe(() => {
+        this.ngSmartModalService.detach();
+      });
+
     this.firstModalClose$.subscribe();
   }
 
@@ -68,7 +83,7 @@ export class TestSmartModalComponent implements OnInit {
 
   public openNestedTemplate(): void {
     if (this.secondTemplateRef) {
-      this.ngSmartModalService.attachTemplateRef(this.secondTemplateRef);
+      this.ngSmartModalService.attachTemplateRef(this.secondTemplateRef, {topPosition: 'center'});
       this.ngSmartModalService.setClass(['my-first-custom-class', 'my-second-custom-class'], 0);
       // this.ngSmartModalService.removeClass(['my-first-custom-class', 'my-second-custom-class'], 0);
     }

@@ -1,6 +1,6 @@
 import {
   ApplicationRef,
-  ComponentFactoryResolver,
+  ComponentFactoryResolver, ComponentRef,
   EmbeddedViewRef,
   EventEmitter,
   Injectable,
@@ -10,13 +10,36 @@ import {
   Type
 } from '@angular/core';
 import {fromEvent, timer} from 'rxjs';
-import {Wrapper} from '../types/wrapper';
-import {IModal} from '../interfaces/i-modal';
-import {Configs} from '../interfaces/configs';
-import {ModalData} from '../interfaces/modal-data';
 import {NavigationEnd, Router} from '@angular/router';
 import {delay, distinctUntilChanged, filter, tap, throttleTime} from 'rxjs/operators';
 import {NgModalWrapperComponent} from '../ng-modal-wrapper/ng-modal-wrapper.component';
+
+export interface IModal<T> {
+  instance: T;
+  closeWrapper$: EventEmitter<void>;
+}
+
+interface Configs {
+  inputs?: object;
+  outputs?: object;
+  class?: string | string[];
+  ignoreWhenRouterChanged?: boolean;
+  ignoreBackdropClick?: boolean;
+  ignoreBackdrop?: boolean;
+  ignoreAnimation?: boolean;
+  ignoreEsc?: boolean;
+  topPosition?: string;
+}
+
+interface ModalData {
+  modalWrapperRef: Wrapper;
+  modalWrapperDomElement: HTMLElement;
+  componentRef: ComponentRef<any> | null;
+  componentDomElem: HTMLElement | null;
+  configs?: Configs;
+}
+
+type Wrapper = ComponentRef<NgModalWrapperComponent>;
 
 const delayTime = 400;
 
@@ -174,6 +197,7 @@ export class NgSmartModalService {
   }
 
   public detach(index: number = this.lasModalIndex): void {
+    console.log('index', index);
     timer(0)
       .pipe(
         tap(() => this.hidePopup(index)),
@@ -182,10 +206,15 @@ export class NgSmartModalService {
       .subscribe(() => this.destroyComponents(index));
   }
 
-  private destroyComponents(index = this.lasModalIndex): void {
+  private destroyComponents(index: number): void {
     if (this.modals.length) {
-      this.destroyWrapperComponent(this.getModal(index).modalWrapperRef);
-      this.modals.splice(index, 1);
+      console.log(index);
+      console.log(this.modals);
+      const modal = this.getModal(index)?.modalWrapperRef;
+      if (modal) {
+        this.modals.splice(index, 1);
+        this.destroyWrapperComponent(modal);
+      }
     }
     this.removeDocumentBodyStyle();
   }
