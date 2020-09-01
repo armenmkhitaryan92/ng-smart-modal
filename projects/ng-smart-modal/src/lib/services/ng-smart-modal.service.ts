@@ -1,6 +1,7 @@
 import {
   ApplicationRef,
-  ComponentFactoryResolver, ComponentRef,
+  ComponentFactoryResolver,
+  ComponentRef,
   EmbeddedViewRef,
   EventEmitter,
   Injectable,
@@ -233,15 +234,15 @@ export class NgSmartModalService {
     const element: HTMLElement | null = modalWrapperDomElement.querySelector('.slide');
     const slidePopup: HTMLElement | null | undefined = element?.querySelector('.slide_popup');
 
+    if (slidePopup?.parentElement) {
+      if (configs?.topPosition === 'center') {
+        // @ts-ignore
+        setTimeout(() => slidePopup.parentElement.style.top = `calc(50% - ${Math.round(slidePopup.parentElement.offsetHeight / 2)}px)`);
+      }
 
-    if (configs?.topPosition === 'center') {
-      // @ts-ignore
-      slidePopup.parentElement.style.top = `calc(50% - ${Math.round(slidePopup.parentElement.offsetHeight / 2)}px)`;
-    }
-
-    if (configs?.topPosition && configs?.topPosition !== 'center') {
-      // @ts-ignore
-      slidePopup.parentElement.style.top = configs.topPosition;
+      if (configs?.topPosition && configs?.topPosition !== 'center') {
+        slidePopup.parentElement.style.top = configs.topPosition;
+      }
     }
 
     const slideModal = element?.children[0] as HTMLElement;
