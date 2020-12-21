@@ -15,6 +15,9 @@ import {NavigationEnd, Router} from '@angular/router';
 import {delay, distinctUntilChanged, filter, tap, throttleTime} from 'rxjs/operators';
 import {NgModalWrapperComponent} from '../ng-modal-wrapper/ng-modal-wrapper.component';
 
+type Wrapper = ComponentRef<NgModalWrapperComponent>;
+type Child = ComponentRef<any> | null;
+
 export interface IModal<T> {
   instance: T;
   closeWrapper$: EventEmitter<void>;
@@ -35,12 +38,10 @@ interface Configs {
 interface ModalData {
   modalWrapperRef: Wrapper;
   modalWrapperDomElement: HTMLElement;
-  componentRef: ComponentRef<any> | null;
+  componentRef: Child;
   componentDomElem: HTMLElement | null;
   configs?: Configs;
 }
-
-type Wrapper = ComponentRef<NgModalWrapperComponent>;
 
 const delayTime = 400;
 
@@ -74,7 +75,8 @@ export class NgSmartModalService {
               .pipe(
                 tap(() => m.modalWrapperDomElement.querySelector('.slide')?.classList.remove('show')),
                 delay(delayTime),
-                tap(() => this.destroyWrapperComponent(m.modalWrapperRef))
+                tap(() => this.destroyWrapperComponent(m.modalWrapperRef)),
+                tap(() => this.destroyComponent(m.componentRef))
               )
               .subscribe(() => {
                 this.modals = this.modals.filter((modal) => modal !== m);
@@ -166,7 +168,7 @@ export class NgSmartModalService {
     }
   }
 
-  private attachConfig(configs: Configs | undefined, componentRef: any): void {
+  private attachConfig(configs: Configs | undefined, componentRef: Child): void {
     const inputs = configs?.inputs || {};
     const outputs = configs?.outputs || {};
     // @ts-ignore
@@ -208,10 +210,13 @@ export class NgSmartModalService {
 
   private destroyComponents(index: number): void {
     if (this.modals.length) {
-      const modal = this.getModal(index)?.modalWrapperRef;
-      if (modal) {
+      const modal: ModalData = this.getModal(index);
+      const wrapper: Wrapper = modal?.modalWrapperRef;
+      const child: Child = modal?.componentRef;
+      if (wrapper) {
         this.modals.splice(index, 1);
-        this.destroyWrapperComponent(modal);
+        this.destroyWrapperComponent(wrapper);
+        this.destroyComponent(child);
       }
     }
     this.removeDocumentBodyStyle();
@@ -227,6 +232,13 @@ export class NgSmartModalService {
   private destroyWrapperComponent(modalWrapperRef: Wrapper): void {
     this.appRef.detachView(modalWrapperRef.hostView);
     modalWrapperRef.destroy();
+  }
+
+  private destroyComponent(componentRef: Child): void {
+    if (componentRef) {
+      this.appRef.detachView(componentRef.hostView);
+      componentRef.destroy();
+    }
   }
 
   private showPopup(modalWrapperDomElement: HTMLElement, configs?: Configs): void {
@@ -308,3 +320,4 @@ export class NgSmartModalService {
   }
 
 }
+

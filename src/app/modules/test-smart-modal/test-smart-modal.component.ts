@@ -1,9 +1,9 @@
-import {timer} from 'rxjs';
-import {delay, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {IModal, NgSmartModalService} from 'ng-smart-modal';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FirstTestModalComponent} from './first-test-modal/first-test-modal.component';
 import {SecondTestModalComponent} from './second-test-modal/second-test-modal.component';
-import {IModal, NgSmartModalService} from 'ng-smart-modal';
+
 
 @Component({
   selector: 'app-ng-smart-modal',
@@ -22,10 +22,10 @@ export class TestSmartModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.openModal();
-    this.openModal();
-    this.openModal();
-    timer(3000)
+    // this.openModal();
+    // this.openModal();
+    // this.openModal();
+    /*timer(3000)
       .pipe(
         tap(() => this.ngSmartModalService.detach()),
         delay(500),
@@ -34,9 +34,9 @@ export class TestSmartModalComponent implements OnInit {
       )
       .subscribe(() => {
         this.ngSmartModalService.detach();
-      });
+      });*/
 
-    this.firstModalClose$.subscribe();
+    // this.firstModalClose$.subscribe();
   }
 
   public openModal(): void {

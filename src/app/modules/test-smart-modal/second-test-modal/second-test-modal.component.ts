@@ -1,17 +1,22 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-second-test-modal',
   templateUrl: './second-test-modal.component.html',
   styleUrls: ['./second-test-modal.component.scss']
 })
-export class SecondTestModalComponent implements OnInit {
+export class SecondTestModalComponent implements OnInit, OnDestroy {
 
   public close$ = new EventEmitter<void>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    console.log('SecondTestModalComponent destroyed');
   }
 
 }

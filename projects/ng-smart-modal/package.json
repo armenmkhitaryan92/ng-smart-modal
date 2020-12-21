@@ -2,7 +2,7 @@
   "name": "ng-smart-modal",
   "license": "MIT",
   "description": "ng-smart-modal is a lightweight Angular library for creating dynamic nested modals",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "repository": {
     "type" : "git",
     "url" : "https://github.com/armenmkhitaryan92/ng-smart-modal"
