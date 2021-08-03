@@ -4,7 +4,6 @@ import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/
 import {FirstTestModalComponent} from './first-test-modal/first-test-modal.component';
 import {SecondTestModalComponent} from './second-test-modal/second-test-modal.component';
 
-
 @Component({
   selector: 'app-ng-smart-modal',
   templateUrl: './test-smart-modal.component.html',
@@ -89,9 +88,8 @@ export class TestSmartModalComponent implements OnInit {
     }
   }
 
-  public onClose(number: number) {
-    this.ngSmartModalService.detach(number);
+  public onClose(index: number) {
+    this.ngSmartModalService.detach(index);
   }
 
 }
-
