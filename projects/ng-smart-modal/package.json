@@ -4,8 +4,8 @@
   "description": "ng-smart-modal is a lightweight Angular library for creating dynamic nested modals",
   "version": "0.1.8",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/armenmkhitaryan92/ng-smart-modal"
+    "type": "git",
+    "url": "https://github.com/armenmkhitaryan92/ng-smart-modal"
   },
   "homepage": "https://github.com/armenmkhitaryan92/ng-smart-modal/tree/master/projects/ng-smart-modal",
   "keywords": [
@@ -18,8 +18,7 @@
   "peerDependencies": {
     "@angular/common": "~10.0.8",
     "@angular/core": "~10.0.8"
-}
-,
+  },
   "dependencies": {
     "tslib": "^2.0.0"
   }
